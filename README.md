@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Service Management
+
+A service management application for managing hospital equipment maintenance, work orders, spare parts, and engineering tasks.
+
+## Tech Stack
+
+- **Framework:** Next.js 16
+- **Database:** PostgreSQL (Neon)
+- **ORM:** Drizzle ORM
+- **Styling:** Tailwind CSS
+
+## Project Structure
+
+```
+.
+├── app/                    # Next.js App Router pages
+│   ├── cargo/             # Cargo management
+│   ├── components/        # Reusable UI components
+│   │   └── icons/         # Icon renderer
+│   ├── config/db/         # Database configuration
+│   │   └── schema.ts      # Drizzle schema definitions
+│   ├── pmstatus/          # PM (Preventive Maintenance) status
+│   ├── reports/           # Reports module
+│   ├── service/           # Service management
+│   ├── settings/          # Settings page
+│   ├── setup/             # Setup/configuration
+│   ├── spareparts/        # Spare parts management
+│   ├── tools/             # Tools management
+│   ├── workdone/          # Completed work orders
+│   ├── layout.tsx         # Root layout
+│   └── page.tsx           # Home page
+├── drizzle/               # Drizzle ORM files
+│   ├── schema.ts          # Database schema
+│   ├── relations.ts      # Table relations
+│   └── 0000_*.sql        # Migration files
+├── drizzle.config.ts      # Drizzle configuration
+└── package.json
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20+
+- PostgreSQL database (Neon or local)
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Install dependencies
+npm install
+
+# or using bun
+bun install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Copy the example environment file and add your database URL:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+cp .env.example .env
+```
 
-## Learn More
+Update `.env` with your Neon database connection string:
 
-To learn more about Next.js, take a look at the following resources:
+```
+DATABASE_URL=postgresql://user:password@host/database?sslmode=require
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Database Commands
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+# Pull schema from database
+npx drizzle-kit pull
 
-## Deploy on Vercel
+# Check schema consistency
+npx drizzle-kit check
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Generate migrations
+npx drizzle-kit generate
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Push migrations to database
+npx drizzle-kit push
+```
+
+### Running the App
+
+```bash
+# Development mode
+npm run dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view the app.
